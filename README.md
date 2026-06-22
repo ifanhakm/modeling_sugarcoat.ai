@@ -1,66 +1,46 @@
-# 🍩 SugarCoat.ai
-> *We don't sugarcoat your health risks. We roast them.*
+# SugarCoat.ai: Machine Learning Pipeline & API Deployment
 
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
-[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![Generative AI](https://img.shields.io/badge/Generative_AI-Magic-8A2BE2?style=for-the-badge)](#)
+This repository houses the core Machine Learning architecture and the production-ready API deployment for **SugarCoat.ai**, a preventative health assistant that utilizes a Deep Cross Network to evaluate diabetes risks based on Gen-Z lifestyle inputs.
 
-SugarCoat.ai is a preventative health assistant engineered specifically to pierce through the apathy of Generation Z. By combining the analytical rigor of **Machine Learning** with the unapologetic, "savage" persona of **Generative AI**, this platform measures diabetes risk through low-friction lifestyle inputs and responds with data-driven, sarcastic guilt-trips designed to catalyze real behavioral change.
+The repository is divided into two primary environments:
+- `Modeling` — Data exploration, custom TensorFlow architecture design, and training artifacts.
+- `Deployment` — Resources and configurations to serve the model as a scalable FastAPI service.
 
-## 🚀 The Core Experience
-*   **Progressive Profiling:** We evaluate baseline risks using daily lifestyle habits (e.g., extreme screen time, sweet beverage consumption) rather than demanding high-friction clinical data upfront.
-*   **The "Savage" AI Persona:** Traditional medical apps are rigid and easily ignored. SugarCoat.ai breaks the mold by delivering hyper-personalized, factual "roasts" that act as psychological hooks, compelling users to take genuine medical lab tests.
-*   **Action-Oriented Catalyst:** Every sarcastic interaction is algorithmically tethered to a strict medical disclaimer and a call-to-action for professional medical validation.
+## 🧠 Folder: Modeling (The ML Brain)
+The `Modeling` directory is the laboratory where the analytical rigor of SugarCoat.ai is forged. We moved beyond traditional tabular models to implement a deep learning architecture capable of understanding the fatal synergies of bad habits.
 
-## 🧠 Machine Learning Architecture
-Our backend is not a simple API wrapper. The risk prediction engine is built on an advanced, production-ready pipeline:
-*   **Core Architecture:** **Deep Cross Network (DCN)** built via the TensorFlow Functional API to automatically learn complex, explicit feature crossings (e.g., the compounded fatal risk of high sugar intake combined with a sedentary lifestyle).
-*   **Classification Strategy:** **Multiclass Classification** targeting three absolute zones: `Normal`, `Prediabetes`, and `Type 2 Diabetes`, optimized using the `sparse_categorical_crossentropy` loss function.
-*   **Custom TensorFlow Components:** 
-    *   `RiskAmplifierLayer`: A custom architectural layer designed to penalize specific, fatal combinations of bad lifestyle habits.
-    *   `TrainingMonitor`: A dynamic custom callback implemented to govern the learning rate and prevent overfitting during the training phase.
-*   **Deployment Pipeline:** The model is exported as a stateless `.keras` artifact. During inference, it is dynamically loaded alongside custom objects (`custom_objects`) and stateful preprocessors (`LabelEncoder`, `StandardScaler`) serialized via `joblib`.
+**Core ML Architecture:**
+*   **Algorithm:** **Deep Cross Network (DCN)** built via TensorFlow Functional API. DCN was selected to automatically learn explicit feature crossings.
+*   **Classification Strategy:** **Binary** (`Normal` & `Diabetes`) utilizing `binary_crossentropy` to pinpoint the critical point of users before irreversible damage occurs.
+*   **Custom TensorFlow Components:**
+    *   `RiskAmplifierLayer`: A custom architectural layer engineered to mathematically penalize high-risk lifestyle intersections.
+    *   `TrainingMonitor`: A dynamic custom callback for real-time validation tracking, learning rate adjustments, and preventing model overfitting.
+*   **Export Pipeline:** The model is serialized as a stateless `.keras` artifact.
 
-## 📂 Repository Structure
-```text
-📦 SugarCoat.ai
- ┣ 📂 deployment/          # Server configuration & Gen-AI prompt pipeline
- ┣ 📂 modeling/            # Jupyter notebooks, dataset EDA, & model training
- ┃ ┣ 📜 dataset_sugarcoat.csv
- ┃ ┣ 📜 [Modelling]_SugarCoat_ai.ipynb
- ┃ ┗ 📂 custom_components/ # Source code for RiskAmplifierLayer & TrainingMonitor
- ┣ 📂 frontend/            # Client-side interface
- ┣ 📜 .gitignore
- ┣ 📜 requirements.txt
- ┗ 📜 README.md
- ```
+**Directory Contents:**
+*   `dataset_sugarcoat.csv` — The foundational tabular dataset for predictive modeling.
+*   `[Modelling]_SugarCoat_ai.ipynb` — The master notebook containing EDA, DCN architecture definition, custom component classes, and the training loop.
+*   `logs/fit/` — TensorBoard log directory for training and validation metrics monitoring.
 
-## ⚙️ Quick Start (Local Setup)
+## 🚀 Folder: Deployment (The Inference Engine)
+The `Deployment` folder contains the production-ready environment required to serve the trained SugarCoat.ai model as a high-performance FastAPI endpoint.
 
-Clone the repository:
-```Bash
-git clone [https://github.com/username/sugarcoat-ai.git](https://github.com/username/sugarcoat-ai.git)
-cd sugarcoat-ai
-```
+**Deployment Mechanics:**
+*   **Custom Object Loading:** The FastAPI server dynamically loads `sugarcoat_model.keras`.
+*   **Stateless Inference:** The API processes incoming JSON payloads, applies the serialized `joblib` scalers, and outputs the precise multiclass probability distribution utilized by our Generative AI pipeline.
 
-Install dependencies:
-```Bash
-pip install -r requirements.txt
-```
+**Directory Contents:**
+*   `Dockerfile` — Docker image configuration utilizing `python:3.10-slim` for a lightweight, production-ready container.
+*   `main.py` — The FastAPI application script handling the routing, model loading, and `/predict` endpoint execution.
+*   `requirements.txt` — Python dependencies required strictly for the server environment.
+*   `sugarcoat_model.keras` — The finalized, trained TensorFlow DCN artifact.
 
-Run the Backend Server:
-```Bash
-cd deployment
-uvicorn main:app --reload
-```
+**Live API Endpoints (Hugging Face Spaces):**
+*   **FastAPI Application:** [https://Ifanhakm-sugarcoat-api.hf.space](https://Ifanhakm-sugarcoat-api.hf.space)
+*   **OpenAPI Documentation (Swagger):** [https://Ifanhakm-sugarcoat-api.hf.space/docs](https://Ifanhakm-sugarcoat-api.hf.space/docs)
+*   **Inference Endpoint:** [https://Ifanhakm-sugarcoat-api.hf.space/predict](https://Ifanhakm-sugarcoat-api.hf.space/predict)
 
-## 👥 The Engineering Team
-Developed as a Capstone Project for the DBS Foundation Coding Camp.
-- Ifan Hakim - AI/ML Engineer
-- Lia Rahma Asnaini - AI/ML Engineer
-- Dandy Faishal Fahmi - Fullstack Developer
-- Daffa Pandora El-farisin - Fullstack Developer
-- Rafi Abdul Rosid - Data Scientist
-- Java Langit Jingga - Data Scientist
-
-_Disclaimer: SugarCoat.ai operates exclusively as an Early-Warning System. Final medical diagnoses must rely on professional clinical laboratory tests._
+## 🔄 Workflow Summary
+1. **Train & Iterate:** Data engineering and model training are executed strictly within the `Modeling` directory.
+2. **Artifact Transfer:** Upon achieving optimal validation metrics, the `sugarcoat_model.keras` and preprocessor files are exported to the `Deployment` directory.
+3. **Serve & Scale:** The `Deployment` folder acts as the standalone codebase for local execution or containerized deployment on Hugging Face Spaces.
