@@ -1,5 +1,7 @@
 # SugarCoat.ai: Machine Learning Pipeline & API Deployment
 
+[Try Here](https://sugarcoat.kdandy.com/)
+
 This repository houses the core Machine Learning architecture and the production-ready API deployment for **SugarCoat.ai**, a preventative health assistant that utilizes a Deep Cross Network to evaluate diabetes risks based on Gen-Z lifestyle inputs.
 
 The repository is divided into two primary environments:
